@@ -13,6 +13,7 @@
             <th>Qty</th>
             <th>Price</th>
             <th>Amount</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody v-for="(detail,index) in details">
@@ -27,6 +28,7 @@
               <td>
               <input type="Number" name="price" v-model="detail.price" placeholder="" /></td>
               <td>{{detail.qty * detail.price}}</td>
+              <td><button @click="delitem(index)">del</button></td>
             </tr>
         </tbody>
         </table>
@@ -74,6 +76,10 @@
     methods: {
       addrow(){
         this.details.push({ id:this.details.length+1,item:{   value: '', text: '' }, value: '',text: '',qty:0,price:0})
+      },
+      delitem(idx){
+        console.log('delitem',idx)
+        this.details.splice(idx,1);
       }
     },
     components: {
