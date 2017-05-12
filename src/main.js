@@ -8,24 +8,6 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-window.bus = new Vue({
-    data () {
-      return {
-        details:[
-                {id:'', name:'', price:0 ,category: 0 },
-                {id:'', name:'', price:0 ,category: 0 },
-                {id:'', name:'', price:0 ,category: 0 },
-                {id:'', name:'', price:0 ,category: 0 },
-                ],
-        item: {
-          id: '',
-          name: '',
-          category_id: ''
-        }
-      }
-    }
-});
-
 /* eslint-disable no-new */
 window.vm = new Vue({
   el: '#app',

@@ -168,7 +168,7 @@
   }
 </script>
 
-<style scoped src="semantic-ui-dropdown/dropdown.css"></style>
+<style scoped src="./dropdown.css"></style>
 <style>
   /* Menu Item Hover */
   .ui.dropdown .menu > .item:hover {
