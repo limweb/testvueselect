@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     onSelect (item,a) {
-        console.log('---onselect----',this)
-        this.detail = item
+        console.log('[onSelect in child] trigger @select="function" in parent with arguments.');
+        this.$emit('select', item, a);
       },
   },
   components:{
