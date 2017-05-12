@@ -17,6 +17,9 @@
       })
     },
     props: {
+      model: {
+        type: Object
+      },
       list: {
         type: Array
       },
@@ -72,14 +75,18 @@
           const item = this.list.find(e => {
             return e[this.optionValue] === option.value
           })
-          this.$emit('input', item)
+          console.log('--onInput--child--',option,this);
+          this.$emit('input', item,this.model,this)
         } else if (typeof option === 'string') {
-          this.$emit('input', option)
+          this.$emit('input',option,this.model,this)
         }
       }
     },
     components: {
       ModelSelect
+    },
+    created() {
+      console.log('created--',this,this.model)
     }
   }
 </script>

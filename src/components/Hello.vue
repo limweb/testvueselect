@@ -18,11 +18,16 @@
         </thead>
         <tbody v-for="(detail,index) in details">
               <tr><td>
-                   <model-select 
-                      :options="options" 
+                   <model-list-select
+                      :list="options"  
+                      option-value="code"
+                      :model="detail"
+                      option-text="product_name"
+                      :custom-text="codeAndNameAndDesc"
                       placeholder="select item"
-                      v-model="details[index].item" >
-                   </model-select>       
+                      v-model="detail.item"
+                      v-on:input="onSelect" >
+                   </model-list-select>       
               </td>
               <td><input type="Number" name="qty" v-model="detail.qty" placeholder="" /></td>
               <td>
@@ -39,43 +44,38 @@
 </template>
 
 <script>
-  import ModelSelect from './ModelSelect.vue'
+  import ModelListSelect from './ModelListSelect.vue'
   
   export default {
     data () {
       return {
         details:[
-          { id:1, item:{   value: '', text: '' },qty:0, price:0 },
-          { id:2, item:{   value: '', text: '' },qty:2, price:10 }
+          { id:1, value: '', text: '', item:{   value: '', text: '' },qty:1, price:0 },
+          { id:2, value: '', text: '', item:{   value: '', text: '' },qty:2, price:10 }
         ],
+        value:"value",
+        text:"text",
+        codeAndNameAndDesc (item) {
+          return `${item.code} - ${item.product_name} - ${item.desc}`
+        },
         options: [
-          { value: '1',  text: 'aa' + ' - ' + '1' },
-          { value: '2',  text: 'ab' + ' - ' + '2' },
-          { value: '3',  text: 'bc' + ' - ' + '3' },
-          { value: '4',  text: 'cd' + ' - ' + '4' },
-          { value: '5',  text: 'de' + ' - ' + '5' },
-          { value: '6',  text: 'ef' + ' - ' + '6' },
-          { value: '10', text: 'ef' + ' - ' + '10' },
-          { value: '11', text: 'ef' + ' - ' + '11' },
-          { value: '12', text: 'ef' + ' - ' + '12' },
-          { value: '13', text: 'down case' + ' - ' + 'testcase' },
-          { value: '14', text: 'camel case' + ' - ' + 'testCase' },
-          { value: '15', text: 'Capitalize case' + ' - ' + 'Testcase' },
-          { value: '16', text: 'more a' + ' - ' + '1' },
-          { value: '17', text: 'more a' + ' - ' + '2' },
-          { value: '18', text: 'more a' + ' - ' + '3' },
-          { value: '19', text: 'more a' + ' - ' + '4' },
-          { value: '20', text: 'more a' + ' - ' + '5' },
-          { value: '21', text: 'more a' + ' - ' + '6' },
-          { value: '22', text: 'more a' + ' - ' + '7' },
-          { value: '23', text: 'more a' + ' - ' + '8' },
-          { value: '24', text: 'more a' + ' - ' + '9' }
+          { id:'1',code: '01', product_name: 'product-aa', desc: 'desc01' ,test: 'test' , price:'100' },
+          { id:'2',code: '02', product_name: 'product-ab', desc: 'desc02' ,test: 'test' , price:'200' },
+          { id:'3',code: '03', product_name: 'product-bc', desc: 'desc03' ,test: 'test' , price:'300' },
+          { id:'4',code: '04', product_name: 'product-cd', desc: 'desc04' ,test: 'test' , price:'400' },
+          { id:'5',code: '05', product_name: 'product-de', desc: 'desc05' ,test: 'test' , price:'500' },
+          { id:'6',code: '06', product_name: 'product-ef', desc: 'desc06' ,test: 'test' , price:'600' }
         ],
       }
     },
     methods: {
+      onSelect(item,model,c,e){
+        console.log('----oninput-parent----',item,model,c,e)
+        model.qty = 1;
+        model.price = item.price;
+      },
       addrow(){
-        this.details.push({ id:this.details.length+1,item:{   value: '', text: '' }, value: '',text: '',qty:0,price:0})
+        this.details.push({ id:this.details.length+1, item:{ id:'',code: '', product_name: '', desc: '' ,test: '' , price:'0' }, value: '',text: '',qty:1,price:0 } ) 
       },
       delitem(idx){
         console.log('delitem',idx)
@@ -83,7 +83,7 @@
       }
     },
     components: {
-      ModelSelect
+      ModelListSelect
     }
   }
 </script>
