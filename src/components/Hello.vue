@@ -2,7 +2,7 @@
   <div class="flexbox">
     <div class="flex-content">
       <div>
-        <item v-for="(detail,index) in details" v-bind:key="index" v-bind:detail="detail" v-on:select="onSelect"></item>
+        <item v-for="(detail,index) in details" v-bind:key="index" v-bind:index="index" v-bind:detail="detail" v-on:select="onSelect"></item>
       </div>
     </div>
       <pre>{{details}}</pre>
@@ -31,10 +31,9 @@
       }
     },
     methods: {
-      onSelect (item,a) {
+      onSelect (item, key) {
         console.log('[onSelect in parent] triggered by @select because of the ".$emit(\'select\')" om child');
-        this.item = item;
-        console.log(this.item);
+        this.details.splice(key, 1, item);
       },
     },
     components: {
